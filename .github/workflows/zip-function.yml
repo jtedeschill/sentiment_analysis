@@ -1,0 +1,29 @@
+name: Zip Cloud Function
+on:
+    push:
+        branches:
+            - main
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+            # Add your build steps here
+    deploy:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: read
+            packages: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Create zip file
+              run: |
+                    cd cloud_function
+                    zip source.zip main.py requirements.txt
+                    mv source.zip ../
+                    cd ..
+                    echo "Zip file created"
