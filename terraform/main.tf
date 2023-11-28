@@ -16,7 +16,7 @@ resource "random_id" "bucket_prefix" {
 }
 
 resource "google_service_account" "default" {
-  account_id   = "test-gcf-sa"
+  account_id   = var.account_id
   display_name = "Test Service Account"
 }
 
@@ -45,7 +45,7 @@ resource "google_storage_bucket_object" "default" {
 resource "google_cloudfunctions2_function" "default" {
   name        = "classify-email"
   location    = "us-central1"
-  description = "a new function"
+  description = "Classify emails using genAI from OpenAI"
 
   build_config {
     runtime     = "python310"

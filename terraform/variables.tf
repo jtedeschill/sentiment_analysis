@@ -24,3 +24,13 @@ variable "table_id" {
     type        = string
 }
 
+variable "service_account_email" {
+    description = "The email address of the service account."
+    type        = string
+}
+
+variable "service_account_display_name" {
+    description = "The display name of the service account."
+    type        = string
+}
+
