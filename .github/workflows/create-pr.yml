@@ -18,10 +18,9 @@ jobs:
       - name: Get commits
         id: get_commits
         run: |
-          git fetch origin main
-          git log --pretty=format:"%s" origin/main..origin/develop
-          output=$(git log --pretty=format:"%s" origin/main..origin/develop)
-          echo "::set-output name=commits::$output"
+            git fetch --no-tags --prune --depth=1 origin +refs/heads/develop:refs/remotes/origin/develop
+            git log --pretty=format:"%s" origin/develop..HEAD > commits.txt
+            echo "::set-output name=commits::$(cat commits.txt)"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
