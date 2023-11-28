@@ -38,8 +38,7 @@ jobs:
                 
           draft: true
           labels: |
-              automerge
-              automerge:merge
+            automated
           reviewers: |
               jrtedeschi
 
