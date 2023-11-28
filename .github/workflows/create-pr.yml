@@ -37,6 +37,6 @@ jobs:
           labels: |
               automerge
               automerge:merge
-          assignees: |
-              jrtedeschi
+          reviewers: |
+              @jrtedeschi
 
