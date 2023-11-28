@@ -41,4 +41,4 @@ jobs:
               automerge
               automerge:merge
           reviewers: |
-              @jrtedeschi
+              jrtedeschi
