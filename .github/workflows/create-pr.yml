@@ -36,10 +36,10 @@ jobs:
             Title of the PR: ${{ github.event.head_commit.message }}
             Commits in the PR:
               ${{ steps.get_commits.outputs.commits }}
-          draft: false
+                
+          draft: true
           labels: |
               automerge
               automerge:merge
           reviewers: |
               @jrtedeschi
-
