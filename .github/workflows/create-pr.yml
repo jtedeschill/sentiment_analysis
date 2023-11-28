@@ -1,0 +1,42 @@
+
+name: Create Pull Request
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      - name: Get commits
+        id: get_commits
+        run: |
+          git fetch origin main
+          git log --pretty=format:"%s" origin/main..origin/develop
+          output=$(git log --pretty=format:"%s" origin/main..origin/develop)
+          echo "::set-output name=commits::$output"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: develop
+          base: main
+          title: "Merge develop into main"
+          # Generate the PR body by listing all commits in the develop branch
+          body: |
+              ${{ steps.get_commits.outputs.commits }}
+          draft: false
+          labels: |
+              automerge
+              automerge:merge
+          assignees: |
+              jrtedeschi
+
