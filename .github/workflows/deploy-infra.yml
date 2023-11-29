@@ -50,6 +50,10 @@ jobs:
         run: terraform init
 
       # Step 4: Deploy Infrastructure using Terraform
+      - name: Terraform plan
+        working-directory: ./terraform
+        run: terraform plan
+
       - name: Deploy Infrastructure
         working-directory: ./terraform
         env:
