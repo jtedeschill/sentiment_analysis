@@ -10,28 +10,25 @@ variable "region" {
 variable "bucket_name" {
     description = "The name of the GCS bucket."
     type        = string
+    default = "classify-emails"
 }
 variable "topic_name" {
     description = "The name of the Pub/Sub topic."
     type        = string
+    default = "classify-emails-topic"
 }
 variable "dataset_id" {
     description = "The ID of the BigQuery dataset."
     type        = string
+    default = "lagoa"
 }
 variable "table_id" {
     description = "The ID of the BigQuery table."
     type        = string
+    default = "classified_emails"
 }
 
 variable "service_account_email" {
     description = "The email address of the service account."
     type        = string
 }
-
-variable "service_account_display_name" {
-    description = "The display name of the service account."
-    type        = string
-}
-
-
