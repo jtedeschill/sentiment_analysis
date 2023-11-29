@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket  = "terraform-state-bucket"
+    bucket  = "${random_id.bucket_prefix.hex}-terraform-state-bucket"
     prefix  = "terraform/state"    
   }
 }
