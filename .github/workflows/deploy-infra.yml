@@ -40,13 +40,16 @@ jobs:
       # Step 2: Set up Terraform
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
+        
         with:
           terraform_version: "1.0.0"
 
       # Step 3: Initialize Terraform
       - name: Initialize Terraform
+        working-directory: ./terraform
         run: terraform init
 
       # Step 4: Deploy Infrastructure using Terraform
       - name: Deploy Infrastructure
+        working-directory: ./terraform
         run: terraform apply -auto-approve
