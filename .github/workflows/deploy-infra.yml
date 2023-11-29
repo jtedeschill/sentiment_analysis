@@ -42,7 +42,7 @@ jobs:
           zip source.zip main.py requirements.txt 
           mv source.zip ../terraform/cloud_function
           cd ..
-          echo "Zip file created"
+          ls terraform/cloud_function
 
       - name: Change Directory
         run: cd terraform
