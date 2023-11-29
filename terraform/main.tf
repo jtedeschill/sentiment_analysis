@@ -16,7 +16,7 @@ resource "random_id" "bucket_prefix" {
 }
 
 resource "google_service_account" "default" {
-  account_id   = var.service_account_email
+  account_id   = "classify-emails"
   display_name = "Test Service Account"
 }
 
