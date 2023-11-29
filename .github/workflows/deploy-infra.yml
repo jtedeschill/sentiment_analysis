@@ -24,6 +24,7 @@ jobs:
           service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
           create_credentials_file: true
           access_token_lifetime: '300s'
+          cleanup_credentials: false
 
 
       - name: Set up gcloud Cloud SDK environment
