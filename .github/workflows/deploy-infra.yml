@@ -33,6 +33,9 @@ jobs:
       - name: 'gcloud test'
         run: |-
           gcloud services list
+
+      - name: Change Directory
+        run: cd terraform
         
       # Step 2: Set up Terraform
       - name: Set up Terraform
