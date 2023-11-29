@@ -6,6 +6,7 @@ on:
       - main
 
 jobs:
+
   deploy:
     runs-on: ubuntu-latest
     permissions:
@@ -33,6 +34,15 @@ jobs:
       - name: 'gcloud test'
         run: |-
           gcloud services list
+
+      - name: Generate Zip file
+        run: |
+          mkdir terraform/cloud_function
+          cd cloud_function
+          zip source.zip main.py requirements.txt 
+          mv source.zip ../terraform/cloud_function
+          cd ..
+          echo "Zip file created"
 
       - name: Change Directory
         run: cd terraform
