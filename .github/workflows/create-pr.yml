@@ -36,9 +36,9 @@ jobs:
             Commits in the PR:
               ${{ steps.get_commits.outputs.commits }}
                 
-          draft: true
+          draft: false
           labels: |
-            automated
+            automated, test
           reviewers: |
               jrtedeschi
 
