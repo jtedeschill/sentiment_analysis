@@ -27,3 +27,14 @@ jobs:
                     mv source.zip ../
                     cd ..
                     echo "Zip file created"
+            - name: Google Auth
+              id: auth
+              uses: google-github-actions/auth@v1.1.1
+              with: 
+                workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+                service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+                create_credentials_file: true
+                access_token_lifetime: '300s'
+                        
+
+
