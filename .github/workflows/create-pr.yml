@@ -26,7 +26,8 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          base: develop
+          base: main
+          branch: ${{ github.ref }}
           title: ${{ github.event.head_commit.message }}
           # Generate the PR body by listing all commits in the develop branch
           body: |
