@@ -50,6 +50,7 @@ resource "google_cloudfunctions2_function" "default" {
   name        = "classify-email"
   location    = "us-central1"
   description = "Classify emails using genAI from OpenAI"
+  depends_on = [google_service_account.service_account]
 
   build_config {
     runtime     = "python310"
