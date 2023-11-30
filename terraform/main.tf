@@ -66,9 +66,6 @@ resource "google_pubsub_subscription" "default" {
   depends_on = [google_project_iam_member.viewer, google_project_iam_member.editor]
 }
 
-data "google_project" "project" {
-}
-
 resource "google_project_iam_member" "viewer" {
   project = data.google_project.project.project_id
   role    = "roles/bigquery.metadataViewer"
