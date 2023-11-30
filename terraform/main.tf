@@ -46,12 +46,12 @@ resource "google_storage_bucket" "default" {
 
 data "archive_file" "default" {
   type        = "zip"
-  output_path = "/tmp/function-source.zip"
+  output_path = "/tmp/source.zip"
   source_dir  = "cloud_function/"
 }
 
 resource "google_storage_bucket_object" "default" {
-  name   = "function-source.zip"
+  name   = "source.zip"
   bucket = google_storage_bucket.default.name
   source = data.archive_file.default.output_path # Path to the zipped function source code
   depends_on = [ 
