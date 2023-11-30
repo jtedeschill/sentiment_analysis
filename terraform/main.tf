@@ -282,47 +282,48 @@ resource "google_pubsub_schema" "push_schema" {
       },
       {
         "name" : "openai_response", "type" 
-        : "string", default: ""
+        : "string", 
+        "default": ""
       },
       {
         "name" : "openai_total_tokens", 
         "type" : "int", 
-        default: 0
+        "default": 0
       },
       {
         "name" : "openai_completion_tokens", 
         "type" : "int", 
-        default: 0
+       "default": 0
       },
       {
         "name" : "openai_prompt_tokens", 
         "type" : "int", 
-        default: 0
+        "default": 0
       },
       {
         "name" : "openai_model", 
         "type" : "string", 
-        default: ""
+        "default": ""
       },
       {
         "name" : "openai_system_fingerprint", 
         "type" : "string", 
-        default: ""
+        "default": ""
       },
       {
         "name" : "openai_created", 
         "type" : "string", 
-        default: ""
+        "default": ""
       },
       {
         "name" : "openai_object", 
         "type" : "string", 
-        default: ""
+        "default" : ""
       },
       {
         "name" : "openai_id", 
         "type" : "string",
-        default: ""
+        "default": ""
       },
       {
         "name": "account_id", 
