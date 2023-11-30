@@ -106,6 +106,6 @@ jobs:
           --trigger-http \
           --allow-unauthenticated \
           --source=. \
-          --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY, PROJECT_ID=${{ secrets.PROJECT_ID }} \
+          --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY,PROJECT_ID=${{ secrets.PROJECT_ID }} \
           --service-account ${{ secrets.SERVICE_ACCOUNT_EMAIL }} \
           --entry-point main \
