@@ -6,12 +6,12 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket  = "tenex-terraform-state-bucket"
-    prefix  = "terraform/state"    
+    bucket = "tenex-terraform-state-bucket"
+    prefix = "terraform/state"
   }
 }
 locals {
-  project = "${var.project_id}"
+  project = var.project_id
 }
 
 data "google_compute_default_service_account" "default" {
@@ -39,7 +39,7 @@ resource "google_service_account" "default" {
 #   type    = "AVRO"
 #   # get from file 
 #   definition = file("schema/bq_schema.avsc")
-  
+
 # }
 
 
@@ -71,14 +71,14 @@ data "google_project" "project" {
 
 resource "google_project_iam_member" "viewer" {
   project = data.google_project.project.project_id
-  role   = "roles/bigquery.metadataViewer"
-  member = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+  role    = "roles/bigquery.metadataViewer"
+  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
 }
 
 resource "google_project_iam_member" "editor" {
   project = data.google_project.project.project_id
-  role   = "roles/bigquery.dataEditor"
-  member = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+  role    = "roles/bigquery.dataEditor"
+  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
 }
 
 resource "google_bigquery_dataset" "dataset" {
@@ -87,8 +87,8 @@ resource "google_bigquery_dataset" "dataset" {
 
 resource "google_bigquery_table" "table" {
   deletion_protection = false
-  table_id   = var.table_id
-  dataset_id = google_bigquery_dataset.dataset.dataset_id
+  table_id            = var.table_id
+  dataset_id          = google_bigquery_dataset.dataset.dataset_id
 
   schema = <<EOF
 [
@@ -103,41 +103,49 @@ resource "google_bigquery_table" "table" {
     "mode": "NULLABLE",
     "description": "The ID of the account."
   },
+  {
     "name": "who_id",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The ID of the contact."
   },
+  {
     "name": "what_type",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The type of the related object."
   },
+  {
     "name": "what_id",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The ID of the related object."
   },
+  {
     "name": "activity_date",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The date of the activity."
   },
+  {
     "name": "completion_date",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The date of the completion."
   },
+  {
     "name": "subject",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The subject of the task."
   },
+  {
     "name": "owner_name",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The name of the owner."
   },
+  {
     "name": "owner_role",
     "type": "STRING",
     "mode": "NULLABLE",
@@ -148,16 +156,19 @@ resource "google_bigquery_table" "table" {
     "mode": "NULLABLE",
     "description": "The subtype of the task."
   },
+  {
     "name": "call_duration_s",
     "type": "INTEGER",
     "mode": "NULLABLE",
     "description": "The duration of the call."
   },
+  {
     "name": "call_disposition",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "The disposition of the call."
   },
+  {
     "name": "created_date",
     "type": "STRING",
     "mode": "NULLABLE",
@@ -168,48 +179,58 @@ resource "google_bigquery_table" "table" {
     "mode": "NULLABLE",
     "description": "The description of the task."
   },
+  {
     "name": "openai_response",
     "type": "STRING",
     "mode": "NULLABLE",
   },
+  {
     "name": "openai_total_tokens",
     "type": "INTEGER",
     "mode": "NULLABLE",
 
   },
+  {
     "name": "openai_completion_tokens",
     "type": "INTEGER",
     "mode": "NULLABLE",
     
   },
+  {
     "name": "openai_prompt_tokens",
     "type": "INTEGER",
     "mode": "NULLABLE",
     
   },
+  {
     "name": "openai_model",
     "type": "STRING",
     "mode": "NULLABLE",
     
   },
+  {
     "name": "openai_system_fingerprint",
     "type": "STRING",
     "mode": "NULLABLE",
     
   },
+  {
     "name": "openai_created",
     "type": "STRING",
     "mode": "NULLABLE",
     
   },
+  {
     "name": "openai_object",
     "type": "STRING",
     "mode": "NULLABLE",
     
   },
+  {
     "name": "openai_id",
     "type": "STRING",
     "mode": "NULLABLE",
+  }
 ]
 EOF
 }
@@ -270,7 +291,7 @@ EOF
 #     google_service_account.default,
 
 #     ]
-  
+
 
 #   build_config {
 #     runtime     = "python310"
