@@ -206,31 +206,129 @@ resource "google_pubsub_schema" "push_schema" {
     "type": "record",
     "name": "Avro",
     "fields": [
-      {"name": "task_id", "type": "string", default: ""},
-      {"name": "account_id", "type": "string", default: ""},
-      {"name": "who_id", "type": "string", default: ""},
-      {"name": "what_type", "type": "string", default: ""},
-      {"name": "what_id", "type": "string", default: ""},
-      {"name": "activity_date", "type": "string", default: ""},
-      {"name": "completion_date", "type": "string", default: ""},
-      {"name": "subject", "type": "string", default: ""},
-      {"name": "owner_name", "type": "string", default: ""},
-      {"name": "owner_role", "type": "string", default: ""},
-      {"name": "task_subtype", "type": "string", default: ""},
-      {"name": "call_duration_s", "type": "int", default: 0},
-      {"name": "call_disposition", "type": "string", default: ""},
-      {"name": "created_date", "type": "string", default: ""},
-      {"name": "description", "type": "string", default: ""},
-      {"name" : "openai_response", "type" : "string", default: ""},
-      {"name" : "openai_total_tokens", "type" : "int", default: 0},
-      {"name" : "openai_completion_tokens", "type" : "int", default: 0},
-      {"name" : "openai_prompt_tokens", "type" : "int", default: 0},
-      {"name" : "openai_model", "type" : "string", default: ""},
-      {"name" : "openai_system_fingerprint", "type" : "string", default: ""},
-      {"name" : "openai_created", "type" : "string", default: ""},
-      {"name" : "openai_object", "type" : "string", default: ""},
-      {"name" : "openai_id", "type" : "string", default: ""}
-      {"name": "account_id", "type": "string"}
+      {
+        "name": "task_id", 
+        "type": "string", 
+        "default": ""
+        },
+      {
+        "name": "account_id", 
+        "type": "string", 
+        "default": ""
+        },
+      {
+        "name": "who_id", 
+        "type": "string", 
+        "default": ""},
+      {
+        "name": "what_type", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "what_id", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "activity_date", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "completion_date", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "subject", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "owner_name", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "owner_role", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "task_subtype", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "call_duration_s", 
+        "type": "int", 
+        "default":0
+      },
+      {
+        "name": "call_disposition", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "created_date", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name": "description", 
+        "type": "string", 
+        "default": ""
+      },
+      {
+        "name" : "openai_response", "type" 
+        : "string", default: ""
+      },
+      {
+        "name" : "openai_total_tokens", 
+        "type" : "int", 
+        default: 0
+      },
+      {
+        "name" : "openai_completion_tokens", 
+        "type" : "int", 
+        default: 0
+      },
+      {
+        "name" : "openai_prompt_tokens", 
+        "type" : "int", 
+        default: 0
+      },
+      {
+        "name" : "openai_model", 
+        "type" : "string", 
+        default: ""
+      },
+      {
+        "name" : "openai_system_fingerprint", 
+        "type" : "string", 
+        default: ""
+      },
+      {
+        "name" : "openai_created", 
+        "type" : "string", 
+        default: ""
+      },
+      {
+        "name" : "openai_object", 
+        "type" : "string", 
+        default: ""
+      },
+      {
+        "name" : "openai_id", 
+        "type" : "string",
+        default: ""
+      },
+      {
+        "name": "account_id", 
+        "type": "string",
+        "default": ""
+      }
     ]
   }
 EOF
