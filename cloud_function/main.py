@@ -9,17 +9,22 @@ import re
 import flask
 import functions_framework
 from google.cloud import pubsub_v1
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-project_id = os.environ["PROJECT_ID"]
-topic_name = "classify-emails-topic"
-
 from openai import OpenAI
 
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
-client = OpenAI()
+logger = logging.getLogger(__name__)
+
+project_id = 'lagoa-dl'
+topic_name = "classify-emails-topic"
+api_key = os.environ["OPENAI_API_KEY"]
+
+os.environ["GOOGLE_PROJECT_ID"] = project_id
+client = OpenAI(
+    api_key=api_key,
+)
 
 
 def classify_email(client, email_content=""):
