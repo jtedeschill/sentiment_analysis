@@ -52,6 +52,7 @@ resource "google_cloudfunctions2_function" "default" {
   location    = "us-central1"
   description = "Classify emails using genAI from OpenAI"
   depends_on = [google_service_account.default]
+  
 
   build_config {
     runtime     = "python310"
@@ -77,6 +78,7 @@ resource "google_cloudfunctions2_function" "default" {
     }
     # ingress_settings               = "ALLOW_INTERNAL_ONLY"
     all_traffic_on_latest_revision = true
+    service_account_email = google_service_account.default
   }
 
   event_trigger {
