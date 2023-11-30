@@ -47,7 +47,7 @@ resource "google_storage_bucket_object" "default" {
 }
 
 resource "google_cloudfunctions2_function" "default" {
-  name        = "classify-email"
+  name        = "classify-email-gcf"
   location    = "us-central1"
   description = "Classify emails using genAI from OpenAI"
   depends_on = [google_service_account.default]
