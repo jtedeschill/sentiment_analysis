@@ -34,7 +34,7 @@ select
  from `hired-393411.Hired.sfdc_task` 
  where task_subtype = 'Email' and subject like '%[In]%'
  order by created_date desc
- limit 1
+ limit 10
  """
 logger.info(f"Running query: {query}")
 
@@ -73,8 +73,9 @@ for row in results:
 
 
     try:
-        r = requests.post(os.environ['GOOGLE_CLOUD_FUNCTION_URL'], json=data)
+        r = requests.post('http://localhost:8080', json=data)
         logging.info(f"Response: {r}")
+        logging.info(f"url: {r.url}")
     except:
         logging.info(f"Error: {r}")
 # Output: Hello world!
