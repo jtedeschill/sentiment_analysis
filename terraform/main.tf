@@ -77,10 +77,6 @@ resource "google_cloudfunctions2_function" "default" {
     service_account_email  = google_service_account.account.email
   }
 
-  output "function_uri" { 
-    value = google_cloudfunctions2_function.function.service_config[0].uri
-  }
-
   event_trigger {
     trigger_region = "us-central1"
     event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
