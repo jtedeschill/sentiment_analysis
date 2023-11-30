@@ -18,9 +18,10 @@ resource "random_id" "bucket_prefix" {
   byte_length = 8
 }
 
-resource "google_service_account" "default" {
+resource "google_service_account" "account" {
   account_id   = "classify-emails"
   display_name = "Test Service Account"
+  
 }
 
 resource "google_pubsub_topic" "default" {
