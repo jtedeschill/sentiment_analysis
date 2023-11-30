@@ -98,6 +98,7 @@ resource "google_bigquery_table" "table" {
     "mode": "NULLABLE",
     "description": "The ID of the task."
   },
+  {
     "name": "account_id",
     "type": "STRING",
     "mode": "NULLABLE",
@@ -151,6 +152,7 @@ resource "google_bigquery_table" "table" {
     "mode": "NULLABLE",
     "description": "The role of the owner."
   },
+  {
     "name": "task_subtype",
     "type": "STRING",
     "mode": "NULLABLE",
@@ -174,6 +176,7 @@ resource "google_bigquery_table" "table" {
     "mode": "NULLABLE",
     "description": "The date of the creation."
   },
+  {
     "name": "description",
     "type": "STRING",
     "mode": "NULLABLE",
@@ -182,54 +185,47 @@ resource "google_bigquery_table" "table" {
   {
     "name": "openai_response",
     "type": "STRING",
-    "mode": "NULLABLE",
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_total_tokens",
     "type": "INTEGER",
-    "mode": "NULLABLE",
-
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_completion_tokens",
     "type": "INTEGER",
-    "mode": "NULLABLE",
-    
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_prompt_tokens",
     "type": "INTEGER",
-    "mode": "NULLABLE",
-    
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_model",
     "type": "STRING",
-    "mode": "NULLABLE",
-    
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_system_fingerprint",
     "type": "STRING",
-    "mode": "NULLABLE",
-    
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_created",
     "type": "STRING",
-    "mode": "NULLABLE",
-    
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_object",
     "type": "STRING",
-    "mode": "NULLABLE",
-    
+    "mode": "NULLABLE"
   },
   {
     "name": "openai_id",
     "type": "STRING",
-    "mode": "NULLABLE",
+    "mode": "NULLABLE"
   }
 ]
 EOF
