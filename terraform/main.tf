@@ -24,11 +24,6 @@ resource "google_service_account" "default" {
 
 }
 
-resource "google_service_account" "new" {
-  account_id   = "228897103624-compute"
-  display_name = "Compute Service Account"
-}
-
 
 resource "google_pubsub_topic" "default" {
   name = "classify-emails-topic"
