@@ -81,14 +81,10 @@ resource "google_project_iam_member" "editor" {
   member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
 }
 
-resource "google_bigquery_dataset" "dataset" {
-  dataset_id = var.dataset_id
-}
-
 resource "google_bigquery_table" "table" {
   deletion_protection = false
   table_id            = var.table_id
-  dataset_id          = google_bigquery_dataset.dataset.dataset_id
+  dataset_id          = var.dataset_id
 
   schema = <<EOF
 [
