@@ -72,9 +72,11 @@ for row in results:
 
 
 
-
-    requests.get(os.environ['GOOGLE_CLOUD_FUNCTION_URL'], json=data)
-
+    try:
+        r = requests.post(os.environ['GOOGLE_CLOUD_FUNCTION_URL'], json=data)
+        logging.info(f"Response: {r}")
+    except:
+        logging.info(f"Error: {r}")
 # Output: Hello world!
 
 # Send json to cloud function
