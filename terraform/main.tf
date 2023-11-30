@@ -324,7 +324,7 @@ resource "google_pubsub_schema" "push_schema" {
         "name" : "openai_id", 
         "type" : "string",
         "default": ""
-      },
+      }
     ]
   }
 EOF
