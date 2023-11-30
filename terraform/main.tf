@@ -10,6 +10,9 @@ terraform {
     prefix  = "terraform/state"    
   }
 }
+locals {
+  project = "${var.project_id}"
+}
 
 resource "random_id" "bucket_prefix" {
   byte_length = 8
@@ -71,7 +74,7 @@ resource "google_cloudfunctions2_function" "default" {
     }
     # ingress_settings               = "ALLOW_INTERNAL_ONLY"
     all_traffic_on_latest_revision = true
-    service_account_email          = google_service_account.default.email
+    service_account_email  = google_service_account.account.email
   }
 
   event_trigger {
@@ -80,4 +83,6 @@ resource "google_cloudfunctions2_function" "default" {
     pubsub_topic   = google_pubsub_topic.default.id
     retry_policy   = "RETRY_POLICY_RETRY"
   }
+
+
 }
