@@ -24,7 +24,6 @@ vendor/
 
 # Ignore package files
 *.tar.gz
-*.zip
 *.rar
 *.gz
 *.bz2
