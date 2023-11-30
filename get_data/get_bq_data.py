@@ -49,16 +49,15 @@ query_job = client.query(query)
 logger.info("Getting results")
 
 results = query_job.result()
-# df
 
-# print(df)
+
 
 for row in results:
 
     # convert to json
     row = dict(row.items())
-    print(row)
-    # print(json.dumps(row.items()))
+    print(row.keys())
+    
     data =  row
 
     for key, value in data.items():

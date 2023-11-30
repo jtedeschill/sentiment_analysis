@@ -33,6 +33,15 @@ resource "google_service_account" "default" {
 
 }
 
+# resource "google_pubsub_schema" "push_schema" {
+#   project = local.project
+#   name    = "push-schema"
+#   type    = "AVRO"
+#   # get from file 
+#   definition = file("schema/bq_schema.avsc")
+  
+# }
+
 
 resource "google_pubsub_topic" "default" {
   name = "classify-emails-topic"
@@ -43,6 +52,199 @@ resource "google_storage_bucket" "default" {
   location                    = "US"
   uniform_bucket_level_access = true
 }
+
+
+
+resource "google_pubsub_subscription" "default" {
+  name  = "push-to-bigquery"
+  topic = google_pubsub_topic.default.name
+
+  bigquery_config {
+    table = "${local.project}.${google_bigquery_table.table.dataset_id}.${google_bigquery_table.table.table_id}"
+  }
+
+  depends_on = [google_project_iam_member.viewer, google_project_iam_member.editor]
+}
+
+data "google_project" "project" {
+}
+
+resource "google_project_iam_member" "viewer" {
+  project = data.google_project.project.project_id
+  role   = "roles/bigquery.metadataViewer"
+  member = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "editor" {
+  project = data.google_project.project.project_id
+  role   = "roles/bigquery.dataEditor"
+  member = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+}
+
+resource "google_bigquery_dataset" "dataset" {
+  dataset_id = var.dataset_id
+}
+
+resource "google_bigquery_table" "table" {
+  deletion_protection = false
+  table_id   = var.table_id
+  dataset_id = google_bigquery_dataset.test.dataset_id
+
+  schema = <<EOF
+[
+  {
+    "name": "task_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The ID of the task."
+  },
+    "name": "account_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The ID of the account."
+  },
+    "name": "who_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The ID of the contact."
+  },
+    "name": "what_type",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The type of the related object."
+  },
+    "name": "what_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The ID of the related object."
+  },
+    "name": "activity_date",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The date of the activity."
+  },
+    "name": "completion_date",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The date of the completion."
+  },
+    "name": "subject",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The subject of the task."
+  },
+    "name": "owner_name",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The name of the owner."
+  },
+    "name": "owner_role",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The role of the owner."
+  },
+    "name": "task_subtype",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The subtype of the task."
+  },
+    "name": "call_duration_s",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "The duration of the call."
+  },
+    "name": "call_disposition",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The disposition of the call."
+  },
+    "name": "created_date",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The date of the creation."
+  },
+    "name": "description",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The description of the task."
+  },
+    "name": "openai_response",
+    "type": "STRING",
+    "mode": "NULLABLE",
+  },
+    "name": "openai_total_tokens",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+
+  },
+    "name": "openai_completion_tokens",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    
+  },
+    "name": "openai_prompt_tokens",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    
+  },
+    "name": "openai_model",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    
+  },
+    "name": "openai_system_fingerprint",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    
+  },
+    "name": "openai_created",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    
+  },
+    "name": "openai_object",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    
+  },
+    "name": "openai_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+]
+EOF
+}
+
+
+# {
+#   "type": "record",
+#   "name": "Task",
+#   "fields": [
+#     {"name": "task_id", "type": "string"},
+#     {"name": "account_id", "type": "string"},
+#     {"name": "who_id", "type": "string"},
+#     {"name": "what_type", "type": "string"},
+#     {"name": "what_id", "type": "string"},
+#     {"name": "activity_date", "type": "string"},
+#     {"name": "completion_date", "type": "string"},
+#     {"name": "subject", "type": "string"},
+#     {"name": "owner_name", "type": "string"},
+#     {"name": "owner_role", "type": "string"},
+#     {"name": "task_subtype", "type": "string"},
+#     {"name": "call_duration_s", "type": "int"},
+#     {"name": "call_disposition", "type": "string"},
+#     {"name": "created_date", "type": "string"},
+#     {"name": "description", "type": "string"},
+#     {"name" : "openai_response", "type" : "string"},
+#     {"name" : "openai_total_tokens", "type" : "int"},
+#     {"name" : "openai_completion_tokens", "type" : "int"},
+#     {"name" : "openai_prompt_tokens", "type" : "int"},
+#     {"name" : "openai_model", "type" : "string"},
+#     {"name" : "openai_system_fingerprint", "type" : "string"},
+#     {"name" : "openai_created", "type" : "string"},
+#     {"name" : "openai_object", "type" : "string"},
+#     {"name" : "openai_id", "type" : "string"}
+#   ]
+# }
 
 # data "archive_file" "default" {
 #   type        = "zip"

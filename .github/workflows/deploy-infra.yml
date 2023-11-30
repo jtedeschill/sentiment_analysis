@@ -95,6 +95,7 @@ jobs:
         working-directory: ./cloud_function
         env: 
             OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+            GOOGLE_CLOUD_PROJECT: ${{ secrets.PROJECT_ID }}
         
         run: |
           gcloud functions deploy classify-emails \
@@ -105,6 +106,6 @@ jobs:
           --trigger-http \
           --allow-unauthenticated \
           --source=. \
-          --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY \
+          --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY  GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT \
           --service-account ${{ secrets.SERVICE_ACCOUNT_EMAIL }} \
           --entry-point main \
