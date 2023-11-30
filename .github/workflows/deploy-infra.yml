@@ -91,20 +91,20 @@ jobs:
 
         run: terraform apply -auto-approve
 
-      - name: Deploy Cloud Function
-        working-directory: ./cloud_function
-        env: 
-            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # - name: Deploy Cloud Function
+      #   working-directory: ./cloud_function
+      #   env: 
+      #       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         
-        run: |
-          gcloud functions deploy classify-emails \
-          --gen2 \
-          --region=us-central1 \
-          --memory=512MB \
-          --runtime=python39 \
-          --trigger-http \
-          --allow-unauthenticated \
-          --source=. \
-          --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY \
-          --service-account ${{ secrets.SERVICE_ACCOUNT_EMAIL }} \
-          --entry-point main \
+      #   run: |
+      #     gcloud functions deploy classify-emails \
+      #     --gen2 \
+      #     --region=us-central1 \
+      #     --memory=512MB \
+      #     --runtime=python39 \
+      #     --trigger-http \
+      #     --allow-unauthenticated \
+      #     --source=. \
+      #     --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY \
+      #     --service-account ${{ secrets.SERVICE_ACCOUNT_EMAIL }} \
+      #     --entry-point main \
