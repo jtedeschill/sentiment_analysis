@@ -325,11 +325,6 @@ resource "google_pubsub_schema" "push_schema" {
         "type" : "string",
         "default": ""
       },
-      {
-        "name": "account_id", 
-        "type": "string",
-        "default": ""
-      }
     ]
   }
 EOF
