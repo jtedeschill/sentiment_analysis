@@ -204,32 +204,33 @@ resource "google_pubsub_schema" "push_schema" {
   definition = <<EOF
   {
     "type": "record",
-    "name": "Task",
+    "name": "Avro",
     "fields": [
-      {"name": "task_id", "type": "string"},
-      {"name": "account_id", "type": "string"},
-      {"name": "who_id", "type": "string"},
-      {"name": "what_type", "type": "string"},
-      {"name": "what_id", "type": "string"},
-      {"name": "activity_date", "type": "string"},
-      {"name": "completion_date", "type": "string"},
-      {"name": "subject", "type": "string"},
-      {"name": "owner_name", "type": "string"},
-      {"name": "owner_role", "type": "string"},
-      {"name": "task_subtype", "type": "string"},
-      {"name": "call_duration_s", "type": "int"},
-      {"name": "call_disposition", "type": "string"},
-      {"name": "created_date", "type": "string"},
-      {"name": "description", "type": "string"},
-      {"name" : "openai_response", "type" : "string"},
-      {"name" : "openai_total_tokens", "type" : "int"},
-      {"name" : "openai_completion_tokens", "type" : "int"},
-      {"name" : "openai_prompt_tokens", "type" : "int"},
-      {"name" : "openai_model", "type" : "string"},
-      {"name" : "openai_system_fingerprint", "type" : "string"},
-      {"name" : "openai_created", "type" : "string"},
-      {"name" : "openai_object", "type" : "string"},
-      {"name" : "openai_id", "type" : "string"}
+      {"name": "task_id", "type": "string", default: ""},
+      {"name": "account_id", "type": "string", default: ""},
+      {"name": "who_id", "type": "string", default: ""},
+      {"name": "what_type", "type": "string", default: ""},
+      {"name": "what_id", "type": "string", default: ""},
+      {"name": "activity_date", "type": "string", default: ""},
+      {"name": "completion_date", "type": "string", default: ""},
+      {"name": "subject", "type": "string", default: ""},
+      {"name": "owner_name", "type": "string", default: ""},
+      {"name": "owner_role", "type": "string", default: ""},
+      {"name": "task_subtype", "type": "string", default: ""},
+      {"name": "call_duration_s", "type": "int", default: 0},
+      {"name": "call_disposition", "type": "string", default: ""},
+      {"name": "created_date", "type": "string", default: ""},
+      {"name": "description", "type": "string", default: ""},
+      {"name" : "openai_response", "type" : "string", default: ""},
+      {"name" : "openai_total_tokens", "type" : "int", default: 0},
+      {"name" : "openai_completion_tokens", "type" : "int", default: 0},
+      {"name" : "openai_prompt_tokens", "type" : "int", default: 0},
+      {"name" : "openai_model", "type" : "string", default: ""},
+      {"name" : "openai_system_fingerprint", "type" : "string", default: ""},
+      {"name" : "openai_created", "type" : "string", default: ""},
+      {"name" : "openai_object", "type" : "string", default: ""},
+      {"name" : "openai_id", "type" : "string", default: ""}
+      {"name": "account_id", "type": "string"}
     ]
   }
 EOF
@@ -256,10 +257,15 @@ resource "google_storage_bucket" "default" {
 resource "google_pubsub_subscription" "default" {
   name  = "push-to-bigquery"
   topic = google_pubsub_topic.default.name
+  
 
   bigquery_config {
     table = "${local.project}.${google_bigquery_table.table.dataset_id}.${google_bigquery_table.table.table_id}"
+    use_topic_schema = true  
   }
+
+
+  
 
   depends_on = [google_project_iam_member.viewer, google_project_iam_member.editor]
 }
