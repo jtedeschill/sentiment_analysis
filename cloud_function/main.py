@@ -8,21 +8,18 @@ import os
 import re
 import flask
 import functions_framework
+from google.cloud import pubsub_v1
 
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# set up credentials
-os.environ["OPENAI_API_KEY"] = "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"
-# Set your OpenAI API key here
-# api_key = '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'
-
+project_id = os.environ["GOOGLE_CLOUD_PROJECT"]
+topic_name = "classify-emails-topic"
 
 from openai import OpenAI
 
 
-client = OpenAI(
-    organization="org-JHa1sYOmrIQwUqtyA0oFYzPB",
-)
+client = OpenAI()
 
 
 def classify_email(client, email_content=""):
@@ -35,7 +32,7 @@ def classify_email(client, email_content=""):
                 "content": """You are a robot sentiment classifier, 
     specializing in classifying emails into positive, neutral, negative, `out of office`, `left the company`,  `tool notification` categories. 
     You are given an email and asked to classify it into one of these categories.
-    Always respond with one of the following: positive, neutral, or negative. designed to output JSON, being the key "result" and the value being the classification.""",
+    designed to output JSON, being the key "result" and the value being the classification.""",
             },
             {"role": "user", "content": f"{email_content}"},
         ],
@@ -79,8 +76,21 @@ def main(request: flask.Request) -> flask.typing.ResponseReturnValue:
 
         task_id = request_json["task_id"]
 
-        with open(f"{task_id}_classified.json", "w") as f:
-            json.dump(request_json, f)
+       
+       # publish to pubsub
+        publisher = pubsub_v1.PublisherClient()
+
+        topic_path = publisher.topic_path(project_id, topic_name)
+
+        data = json.dumps(request_json).encode("utf-8")
+        future = publisher.publish(topic_path, data=data)
+        logging.info(f"Published messages to {topic_path}.")
+        logging.info(future.result())
+
+
+        
+
+
 
         return "OK"
     except Exception as e:
