@@ -13,7 +13,7 @@ from google.cloud import pubsub_v1
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-project_id = os.environ["GOOGLE_CLOUD_PROJECT"]
+project_id = os.environ["PROJECT_ID"]
 topic_name = "classify-emails-topic"
 
 from openai import OpenAI
