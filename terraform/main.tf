@@ -33,73 +33,6 @@ resource "google_service_account" "default" {
 
 }
 
-resource "google_pubsub_schema" "push_schema" {
-  project = local.project
-  name    = "push-schema"
-  type    = "AVRO"
-  # get from file 
-  definition = <<EOF
-  {
-    "type": "record",
-    "name": "Task",
-    "fields": [
-      {"name": "task_id", "type": "string"},
-      {"name": "account_id", "type": "string"},
-      {"name": "who_id", "type": "string"},
-      {"name": "what_type", "type": "string"},
-      {"name": "what_id", "type": "string"},
-      {"name": "activity_date", "type": "string"},
-      {"name": "completion_date", "type": "string"},
-      {"name": "subject", "type": "string"},
-      {"name": "owner_name", "type": "string"},
-      {"name": "owner_role", "type": "string"},
-      {"name": "task_subtype", "type": "string"},
-      {"name": "call_duration_s", "type": "int"},
-      {"name": "call_disposition", "type": "string"},
-      {"name": "created_date", "type": "string"},
-      {"name": "description", "type": "string"},
-      {"name" : "openai_response", "type" : "string"},
-      {"name" : "openai_total_tokens", "type" : "int"},
-      {"name" : "openai_completion_tokens", "type" : "int"},
-      {"name" : "openai_prompt_tokens", "type" : "int"},
-      {"name" : "openai_model", "type" : "string"},
-      {"name" : "openai_system_fingerprint", "type" : "string"},
-      {"name" : "openai_created", "type" : "string"},
-      {"name" : "openai_object", "type" : "string"},
-      {"name" : "openai_id", "type" : "string"}
-    ]
-  }
-EOF
-}
-
-
-resource "google_pubsub_topic" "default" {
-  name = "classify-emails-topic"
-  depends_on = [ google_pubsub_schema.push_schema ]
-  schema_settings {
-    schema = "projects/lagoa-dl/schemas/push-schema"
-    encoding = "JSON"
-  }
-}
-
-resource "google_storage_bucket" "default" {
-  name                        = "${random_id.bucket_prefix.hex}-gcf-source" # Every bucket name must be globally unique
-  location                    = "US"
-  uniform_bucket_level_access = true
-}
-
-
-
-resource "google_pubsub_subscription" "default" {
-  name  = "push-to-bigquery"
-  topic = google_pubsub_topic.default.name
-
-  bigquery_config {
-    table = "${local.project}.${google_bigquery_table.table.dataset_id}.${google_bigquery_table.table.table_id}"
-  }
-
-  depends_on = [google_project_iam_member.viewer, google_project_iam_member.editor]
-}
 
 data "google_project" "project" {
 }
@@ -260,6 +193,75 @@ resource "google_bigquery_table" "table" {
   }
 ]
 EOF
+}
+
+
+resource "google_pubsub_schema" "push_schema" {
+  project = local.project
+  name    = "push-schema"
+  type    = "AVRO"
+  # get from file 
+  definition = <<EOF
+  {
+    "type": "record",
+    "name": "Task",
+    "fields": [
+      {"name": "task_id", "type": "string"},
+      {"name": "account_id", "type": "string"},
+      {"name": "who_id", "type": "string"},
+      {"name": "what_type", "type": "string"},
+      {"name": "what_id", "type": "string"},
+      {"name": "activity_date", "type": "string"},
+      {"name": "completion_date", "type": "string"},
+      {"name": "subject", "type": "string"},
+      {"name": "owner_name", "type": "string"},
+      {"name": "owner_role", "type": "string"},
+      {"name": "task_subtype", "type": "string"},
+      {"name": "call_duration_s", "type": "int"},
+      {"name": "call_disposition", "type": "string"},
+      {"name": "created_date", "type": "string"},
+      {"name": "description", "type": "string"},
+      {"name" : "openai_response", "type" : "string"},
+      {"name" : "openai_total_tokens", "type" : "int"},
+      {"name" : "openai_completion_tokens", "type" : "int"},
+      {"name" : "openai_prompt_tokens", "type" : "int"},
+      {"name" : "openai_model", "type" : "string"},
+      {"name" : "openai_system_fingerprint", "type" : "string"},
+      {"name" : "openai_created", "type" : "string"},
+      {"name" : "openai_object", "type" : "string"},
+      {"name" : "openai_id", "type" : "string"}
+    ]
+  }
+EOF
+}
+
+
+resource "google_pubsub_topic" "default" {
+  name = "classify-emails-topic"
+  depends_on = [ google_pubsub_schema.push_schema ]
+  schema_settings {
+    schema = "projects/lagoa-dl/schemas/push-schema"
+    encoding = "JSON"
+  }
+}
+
+resource "google_storage_bucket" "default" {
+  name                        = "${random_id.bucket_prefix.hex}-gcf-source" # Every bucket name must be globally unique
+  location                    = "US"
+  uniform_bucket_level_access = true
+}
+
+
+
+resource "google_pubsub_subscription" "default" {
+  name  = "push-to-bigquery"
+  topic = google_pubsub_topic.default.name
+
+  bigquery_config {
+    table = "${local.project}.${google_bigquery_table.table.dataset_id}.${google_bigquery_table.table.table_id}"
+  }
+
+  depends_on = [google_project_iam_member.viewer, google_project_iam_member.editor]
 }
 
 
