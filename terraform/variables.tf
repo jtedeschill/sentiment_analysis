@@ -1,3 +1,10 @@
+variable "gcp_credentials_file" {
+    description = "The path to the GCP credentials file."
+    type        = string
+    default     = "~/.gcp/credentials.json"
+  
+}
+
 variable "project_id" {
     description = "The ID of the project in which resources will be managed."
     type        = string

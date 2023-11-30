@@ -3,6 +3,7 @@ terraform {
     google = {
       source  = "hashicorp/google"
       version = ">= 4.34.0"
+      credentials = file(var.gcp_credentials_file)
     }
   }
   backend "gcs" {
@@ -45,13 +46,20 @@ resource "google_storage_bucket_object" "default" {
   name   = "function-source.zip"
   bucket = google_storage_bucket.default.name
   source = data.archive_file.default.output_path # Path to the zipped function source code
+  depends_on = [ 
+    data.archive_file.default,
+    google_storage_bucket.default
+    ]
 }
 
 resource "google_cloudfunctions2_function" "default" {
   name        = "classify-email-gcf"
   location    = "us-central1"
   description = "Classify emails using genAI from OpenAI"
-  depends_on = [google_service_account.default]
+  depends_on = [
+    google_service_account.default,
+
+    ]
   
 
   build_config {
