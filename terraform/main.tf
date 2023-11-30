@@ -75,6 +75,11 @@ EOF
 
 resource "google_pubsub_topic" "default" {
   name = "classify-emails-topic"
+  depends_on = [ google_pubsub_schema.push_schema ]
+  schema_settings {
+    schema = "projects/lagoa-dl/schemas/push-schema"
+    encoding = "JSON"
+  }
 }
 
 resource "google_storage_bucket" "default" {
