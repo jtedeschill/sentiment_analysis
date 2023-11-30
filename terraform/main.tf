@@ -204,7 +204,7 @@ resource "google_pubsub_schema" "push_schema" {
   definition = <<EOF
   {
     "type": "record",
-    "name": "Avro",
+    "name": "Task",
     "fields": [
       {
         "name": "task_id", 
