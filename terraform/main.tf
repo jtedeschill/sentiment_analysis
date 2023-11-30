@@ -88,7 +88,7 @@ resource "google_bigquery_dataset" "dataset" {
 resource "google_bigquery_table" "table" {
   deletion_protection = false
   table_id   = var.table_id
-  dataset_id = google_bigquery_dataset.test.dataset_id
+  dataset_id = google_bigquery_dataset.dataset.dataset_id
 
   schema = <<EOF
 [
