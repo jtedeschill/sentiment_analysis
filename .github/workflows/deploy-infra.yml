@@ -59,6 +59,10 @@ jobs:
         working-directory: ./terraform
         run: terraform init
 
+      - name: Terraform Refresh
+        working-directory: ./terraform
+        run: terraform refresh
+          
       # Step 4: Deploy Infrastructure using Terraform
       - name: Terraform plan
         working-directory: ./terraform
