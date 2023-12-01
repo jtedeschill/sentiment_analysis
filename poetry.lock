@@ -33,6 +33,20 @@ test = ["anyio[trio]", "coverage[toml] (>=4.5)", "hypothesis (>=4.0)", "mock (>=
 trio = ["trio (<0.22)"]
 
 [[package]]
+name = "avro"
+version = "1.11.3"
+description = "Avro is a serialization and RPC framework."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "avro-1.11.3.tar.gz", hash = "sha256:3393bb5139f9cf0791d205756ce1e39a5b58586af5b153d6a3b5a199610e9d17"},
+]
+
+[package.extras]
+snappy = ["python-snappy"]
+zstandard = ["zstandard"]
+
+[[package]]
 name = "blinker"
 version = "1.7.0"
 description = "Fast, simple object-to-object and broadcast signaling"
@@ -1620,4 +1634,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "517f71b473419bfcfb0ef608a05e13a308a6dd08c68a500c6b1337907d24f754"
+content-hash = "0b78b5092c05516cc70678025f10101ba2e0d87115aaf7e36b531a4d9085966f"

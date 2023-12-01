@@ -88,6 +88,15 @@ def main(request: flask.Request) -> flask.typing.ResponseReturnValue:
 
         data = json.dumps(request_json).encode("utf-8")
         
+        # validate schema against json schema
+        # https://cloud.google.com/pubsub/docs/schemas
+        logging.info(f"Data: {data}")
+
+        # save json into a file using json.dumps
+
+        with open("request_json.json", "w") as f:
+            f.write(json.dumps(request_json))
+
         future = publisher.publish(topic_path, data=data)
 
         logging.info(f"Published messages to {topic_path}.")
