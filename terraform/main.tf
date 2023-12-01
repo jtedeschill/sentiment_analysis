@@ -134,18 +134,18 @@ resource "google_pubsub_schema" "push_schema" {
     "type": "record",
     "name": "Task",
     "fields": [
-      {"name": "task_id", "type": ["string"], "default": "null"},
-      {"name": "account_id", "type": ["string"], "default": "null"},
-      {"name": "description", "type": ["string"], "default": "null"},
-      {"name": "openai_response", "type": ["string"], "default": "null"},
-      {"name": "openai_total_tokens", "type": ["int"], "default": "null"},
-      {"name": "openai_completion_tokens", "type": ["int"], "default": "null"},
-      {"name": "openai_prompt_tokens", "type": ["int"], "default": "null"},
-      {"name": "openai_model", "type": ["string"], "default": "null"},
-      {"name": "openai_system_fingerprint", "type": ["string"], "default": "null"},
-      {"name": "openai_created", "type": ["string"], "default": "null"},
-      {"name": "openai_object", "type": ["string"], "default": "null"},
-      {"name": "openai_id", "type": ["string"], "default": "null"}
+      {"name": "task_id", "type": ["string","null"], "default": null},
+      {"name": "account_id", "type": ["string","null"], "default": null},
+      {"name": "description", "type": ["string","null"], "default": null},
+      {"name": "openai_response", "type": ["string","null"], "default": null},
+      {"name": "openai_total_tokens", "type": ["int","null"], "default": null},
+      {"name": "openai_completion_tokens", "type": ["int","null"], "default": null},
+      {"name": "openai_prompt_tokens", "type": ["int","null"], "default": null},
+      {"name": "openai_model", "type": ["string","null"], "default": null},
+      {"name": "openai_system_fingerprint", "type": ["string","null"], "default": null},
+      {"name": "openai_created", "type": ["string","null"], "default": null},
+      {"name": "openai_object", "type": ["string","null"], "default": null},
+      {"name": "openai_id", "type": ["string","null"], "default": null}
     ]
 }
 EOF
