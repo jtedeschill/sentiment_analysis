@@ -73,7 +73,8 @@ for row in results:
 
 
     try:
-        r = requests.post('http://localhost:8080', json=data)
+        logging.info(f"Sending data: {data}")
+        r = requests.post(os.environ['GOOGLE_CLOUD_FUNCTION_URL'], json=data)
         logging.info(f"Response: {r}")
         logging.info(f"url: {r.url}")
     except:
