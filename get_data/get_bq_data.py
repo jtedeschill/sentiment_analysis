@@ -32,7 +32,8 @@ query = """
 select 
     task_id,
     account_id,
-    description
+    description,
+    subject
  from `hired-393411.Hired.sfdc_task` 
  where task_subtype = 'Email' and subject like '%[In]%'
  order by created_date desc
@@ -78,6 +79,8 @@ for row in results:
         logging.info(f"Sending data: {data}")
         r = requests.post(os.environ['GOOGLE_CLOUD_FUNCTION_URL'], json=data)
         logging.info(f"Response: {r}")
+        logging.info(f"Status code: {r.status_code}")
+        logging.info(f"Content: {r.content}")
         logging.info(f"url: {r.url}")
     except:
         logging.info(f"Error: {r}")

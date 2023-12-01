@@ -75,6 +75,12 @@ resource "google_bigquery_table" "table" {
     "description": "The description of the task."
   },
   {
+    "name": "subject",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "The description of the task."
+  },
+  {
     "name": "openai_response",
     "type": "STRING",
     "mode": "NULLABLE"
@@ -137,6 +143,7 @@ resource "google_pubsub_schema" "push_schema" {
       {"name": "task_id", "type": ["string","null"], "default": null},
       {"name": "account_id", "type": ["string","null"], "default": null},
       {"name": "description", "type": ["string","null"], "default": null},
+      {"name": "subject", "type": ["string","null"], "default" : null},
       {"name": "openai_response", "type": ["string","null"], "default": null},
       {"name": "openai_total_tokens", "type": ["int","null"], "default": null},
       {"name": "openai_completion_tokens", "type": ["int","null"], "default": null},
