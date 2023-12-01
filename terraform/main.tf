@@ -198,7 +198,7 @@ EOF
 
 resource "google_pubsub_schema" "push_schema" {
   project = local.project
-  name    = "push-schema"
+  name    = "push-schema-1"
   type    = "AVRO"
   # get from file 
   definition = <<EOF
