@@ -109,4 +109,5 @@ jobs:
           --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY,PROJECT_ID=${{ secrets.PROJECT_ID }} \
           --service-account ${{ secrets.SERVICE_ACCOUNT_EMAIL }} \
           --entry-point main \
-          --ingress-settings=all
+          --ingress-settings=all \
+          --egress-settings=all \
