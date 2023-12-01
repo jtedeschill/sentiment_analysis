@@ -37,7 +37,7 @@ select
  from `hired-393411.Hired.sfdc_task` 
  where task_subtype = 'Email' and subject like '%[In]%'
  order by created_date desc
- limit 1
+ limit 100
  """
 logger.info(f"Running query: {query}")
 
