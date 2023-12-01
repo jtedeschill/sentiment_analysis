@@ -88,7 +88,9 @@ def main(request: flask.Request) -> flask.typing.ResponseReturnValue:
         topic_path = publisher.topic_path(project_id, topic_name)
 
         data = json.dumps(request_json).encode("utf-8")
+        
         future = publisher.publish(topic_path, data=data)
+
         logging.info(f"Published messages to {topic_path}.")
         logging.info(future.result())
 
