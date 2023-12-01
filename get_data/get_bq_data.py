@@ -30,7 +30,9 @@ client = bq.Client(credentials=credentials, project=credentials.project_id)
 
 query = """
 select 
-    *
+    task_id,
+    account_id,
+    description
  from `hired-393411.Hired.sfdc_task` 
  where task_subtype = 'Email' and subject like '%[In]%'
  order by created_date desc
