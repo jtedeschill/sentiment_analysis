@@ -94,8 +94,8 @@ def main(request: flask.Request) -> flask.typing.ResponseReturnValue:
 
         # save json into a file using json.dumps
 
-        with open("request_json.json", "w") as f:
-            f.write(json.dumps(request_json))
+        # with open("request_json.json", "w") as f:
+        #     f.write(json.dumps(request_json))
 
         future = publisher.publish(topic_path, data=data)
 
