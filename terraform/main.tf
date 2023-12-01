@@ -198,7 +198,7 @@ EOF
 
 resource "google_pubsub_schema" "push_schema" {
   project = var.project_id
-  name    = "pushschema1"
+  name    = "push-schema"
   type    = "AVRO"
   # get from file 
   definition = <<EOF
@@ -240,7 +240,7 @@ resource "google_pubsub_topic" "default" {
   name = "classify-emails-topic"
   depends_on = [ google_pubsub_schema.push_schema ]
   schema_settings {
-    schema = "projects/${var.project_id}/schemas/${google_pubsub_schema.push_schema.name}}"
+    schema = "projects/${var.project_id}/schemas/${google_pubsub_schema.push_schema.name}"
     encoding = "JSON"
   }
 }
