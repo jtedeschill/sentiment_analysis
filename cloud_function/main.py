@@ -74,14 +74,13 @@ def main(request: flask.Request) -> flask.typing.ResponseReturnValue:
         request_json["openai_prompt_tokens"] = res.usage.prompt_tokens
         request_json["openai_model"] = res.model
         request_json["openai_system_fingerprint"] = res.system_fingerprint
-        request_json["openai_created"] = res.created
+        request_json["openai_created"] = str(res.created)
         request_json["openai_object"] = res.object
         request_json["openai_id"] = res.id
 
 
         task_id = request_json["task_id"]
-
-       
+        
        # publish to pubsub
         publisher = pubsub_v1.PublisherClient()
 
