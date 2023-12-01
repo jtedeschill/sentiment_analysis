@@ -240,7 +240,7 @@ resource "google_pubsub_topic" "default" {
   name = "classify-emails-topic"
   depends_on = [ google_pubsub_schema.push_schema ]
   schema_settings {
-    schema = "projects/lagoa-dl/schemas/push-schema"
+    schema = "projects/${local.project}/schemas/${google_pubsub_schema.push_schema.name}}"
     encoding = "JSON"
   }
 }
