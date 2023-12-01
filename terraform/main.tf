@@ -69,78 +69,6 @@ resource "google_bigquery_table" "table" {
     "description": "The ID of the account."
   },
   {
-    "name": "who_id",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The ID of the contact."
-  },
-  {
-    "name": "what_type",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The type of the related object."
-  },
-  {
-    "name": "what_id",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The ID of the related object."
-  },
-  {
-    "name": "activity_date",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The date of the activity."
-  },
-  {
-    "name": "completion_date",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The date of the completion."
-  },
-  {
-    "name": "subject",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The subject of the task."
-  },
-  {
-    "name": "owner_name",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The name of the owner."
-  },
-  {
-    "name": "owner_role",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The role of the owner."
-  },
-  {
-    "name": "task_subtype",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The subtype of the task."
-  },
-  {
-    "name": "call_duration_s",
-    "type": "INTEGER",
-    "mode": "NULLABLE",
-    "description": "The duration of the call."
-  },
-  {
-    "name": "call_disposition",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The disposition of the call."
-  },
-  {
-    "name": "created_date",
-    "type": "STRING",
-    "mode": "NULLABLE",
-    "description": "The date of the creation."
-  },
-  {
     "name": "description",
     "type": "STRING",
     "mode": "NULLABLE",
@@ -206,30 +134,18 @@ resource "google_pubsub_schema" "push_schema" {
     "type": "record",
     "name": "Task",
     "fields": [
-      {"name": "task_id", "type": ["null", "string"], "default": null},
-      {"name": "account_id", "type": ["null", "string"], "default": null},
-      {"name": "who_id", "type": ["null", "string"], "default": null},
-      {"name": "what_type", "type": ["null", "string"], "default": null},
-      {"name": "what_id", "type": ["null", "string"], "default": null},
-      {"name": "activity_date", "type": ["null", "string"], "default": null},
-      {"name": "completion_date", "type": ["null", "string"], "default": null},
-      {"name": "subject", "type": ["null", "string"], "default": null},
-      {"name": "owner_name", "type": ["null", "string"], "default": null},
-      {"name": "owner_role", "type": ["null", "string"], "default": null},
-      {"name": "task_subtype", "type": ["null", "string"], "default": null},
-      {"name": "call_duration_s", "type": ["null", "int"], "default": null},
-      {"name": "call_disposition", "type": ["null", "string"], "default": null},
-      {"name": "created_date", "type": ["null", "string"], "default": null},
-      {"name": "description", "type": ["null", "string"], "default": null},
-      {"name": "openai_response", "type": ["null", "string"], "default": null},
-      {"name": "openai_total_tokens", "type": ["null", "int"], "default": null},
-      {"name": "openai_completion_tokens", "type": ["null", "int"], "default": null},
-      {"name": "openai_prompt_tokens", "type": ["null", "int"], "default": null},
-      {"name": "openai_model", "type": ["null", "string"], "default": null},
-      {"name": "openai_system_fingerprint", "type": ["null", "string"], "default": null},
-      {"name": "openai_created", "type": ["null", "string"], "default": null},
-      {"name": "openai_object", "type": ["null", "string"], "default": null},
-      {"name": "openai_id", "type": ["null", "string"], "default": null}
+      {"name": "task_id", "type": ["string"], "default": "null"},
+      {"name": "account_id", "type": ["string"], "default": "null"},
+      {"name": "description", "type": ["string"], "default": "null"},
+      {"name": "openai_response", "type": ["string"], "default": "null"},
+      {"name": "openai_total_tokens", "type": ["int"], "default": "null"},
+      {"name": "openai_completion_tokens", "type": ["int"], "default": "null"},
+      {"name": "openai_prompt_tokens", "type": ["int"], "default": "null"},
+      {"name": "openai_model", "type": ["string"], "default": "null"},
+      {"name": "openai_system_fingerprint", "type": ["string"], "default": "null"},
+      {"name": "openai_created", "type": ["string"], "default": "null"},
+      {"name": "openai_object", "type": ["string"], "default": "null"},
+      {"name": "openai_id", "type": ["string"], "default": "null"}
     ]
 }
 EOF
