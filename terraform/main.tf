@@ -140,19 +140,19 @@ resource "google_pubsub_schema" "push_schema" {
     "type": "record",
     "name": "Task",
     "fields": [
-      {"name": "task_id", "type": ["string","null"], "default": null},
-      {"name": "account_id", "type": ["string","null"], "default": null},
-      {"name": "description", "type": ["string","null"], "default": null},
-      {"name": "subject", "type": ["string","null"], "default" : null},
-      {"name": "openai_response", "type": ["string","null"], "default": null},
-      {"name": "openai_total_tokens", "type": ["int","null"], "default": null},
-      {"name": "openai_completion_tokens", "type": ["int","null"], "default": null},
-      {"name": "openai_prompt_tokens", "type": ["int","null"], "default": null},
-      {"name": "openai_model", "type": ["string","null"], "default": null},
-      {"name": "openai_system_fingerprint", "type": ["string","null"], "default": null},
-      {"name": "openai_created", "type": ["string","null"], "default": null},
-      {"name": "openai_object", "type": ["string","null"], "default": null},
-      {"name": "openai_id", "type": ["string","null"], "default": null}
+      {"name": "task_id", "type": "string"},
+      {"name": "account_id", "type": "string"},
+      {"name": "description", "type": "string"},
+      {"name": "subject", "type": "string"},
+      {"name": "openai_response", "type": "string"},
+      {"name": "openai_total_tokens", "type": "int"},
+      {"name": "openai_completion_tokens", "type": "int"},
+      {"name": "openai_prompt_tokens", "type": "int"},
+      {"name": "openai_model", "type": "string"},
+      {"name": "openai_system_fingerprint", "type": "string"},
+      {"name": "openai_created", "type": "string"},
+      {"name": "openai_object", "type": "string"},
+      {"name": "openai_id", "type": "string"}
     ]
 }
 EOF
