@@ -33,7 +33,7 @@ jobs:
 
       - name: 'gcloud test'
         run: |-
-          gcloud auth login --cred-file ${{ steps.auth.outputs.credentials_file }}
+          gcloud services list
 
       - name: Generate Zip file
         run: |
