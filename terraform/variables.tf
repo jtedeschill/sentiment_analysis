@@ -27,7 +27,7 @@ variable "topic_name" {
 variable "dataset_id" {
     description = "The ID of the BigQuery dataset."
     type        = string
-    default = "lagoa"
+    default = "Hired"
 }
 variable "table_id" {
     description = "The ID of the BigQuery table."

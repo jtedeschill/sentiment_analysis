@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket = "tenex-terraform-state-bucket"
+    bucket = "hired-terraform-state-bucket"
     prefix = "terraform/state"
   }
 }
