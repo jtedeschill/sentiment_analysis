@@ -17,7 +17,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-project_id = 'lagoa-dl'
+project_id = os.environ["PROJECT_ID"]
 topic_name = "classify-emails-topic"
 api_key = os.environ["OPENAI_API_KEY"]
 
