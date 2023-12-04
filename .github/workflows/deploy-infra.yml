@@ -33,7 +33,7 @@ jobs:
 
       - name: 'gcloud test'
         run: |-
-          gcloud auth application-default login --project ${{ secrets.PROJECT_ID }}
+          gcloud auth application-default login --project ${{ secrets.PROJECT_ID }} --quiet
 
       - name: Generate Zip file
         run: |
