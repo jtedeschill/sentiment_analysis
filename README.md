@@ -79,6 +79,13 @@ Google BigQuery Table: This is the table where the data from the Pub/Sub message
 
 Google Cloud Function: This is the function that will post to the Pub/Sub topic. The function will read the message from the topic, perform sentiment analysis on the message, and write the result to the BigQuery table.
 
+
+## Setting Principal
+
+Go to IAM & Admin > IAM > Service Accounts > Select the service account > Grant Access to the following roles:
+Workload Identity User
+and use the principal `principalSet://iam.googleapis.com/projects/228897103624/locations/global/workloadIdentityPools/CHANGETHEPOOLNAME/*`
+
 ### Usage
 
 To use this project, you need to have Terraform installed and configured with your Google Cloud credentials.
